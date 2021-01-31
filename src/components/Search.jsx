@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-export default function Search() {
+const REACT_APP_WEATHER_API = process.env.REACT_APP_WEATHER_API
+console.log(REACT_APP_WEATHER_API);
 
+export default function Search() {
     const [cityFromUser, setCityFromUser] = useState('')
 
     const handelCityChange = function (event) {
