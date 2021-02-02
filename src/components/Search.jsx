@@ -10,7 +10,8 @@ export default function Search() {
     useEffect(() => {
         const cityKey = async function () {
             let data = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${WEATHER_API_KEY}&q=${cityFromUser}`)
-            console.log(data.data?.key);
+            data = await data.data
+            console.log(data);
         }
         cityKey()
 
