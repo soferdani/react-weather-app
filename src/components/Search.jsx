@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios'
+const WEATHER_API_KEY= process.env.REACT_APP_WEATHER_API
 
-const REACT_APP_WEATHER_API = process.env.REACT_APP_WEATHER_API
-console.log(REACT_APP_WEATHER_API);
 
 export default function Search() {
     const [cityFromUser, setCityFromUser] = useState('')
+
+
+    useEffect(() => {
+        const cityKey = async function () {
+            let data = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${WEATHER_API_KEY}&q=${cityFromUser}`)
+            console.log(data.data?.key);
+        }
+        cityKey()
+
+    },[cityFromUser])
 
     const handelCityChange = function (event) {
         setCityFromUser(event.target.value)
