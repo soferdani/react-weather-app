@@ -6,7 +6,7 @@ const WEATHER_API_KEY= process.env.REACT_APP_WEATHER_API
 export default function Search() {
     const [cityFromUser, setCityFromUser] = useState('')
     const [citesFromAPI, setCitesFromAPI] = useState(null)
-    const [currentGeoLocation, setCurrentGeoLocation] = useState(null)
+    const [cityCode, setCityCode] = useState (null)
 
     useEffect(() => { // at the moment does not really working like it should
         const cityKey = async function () {
@@ -18,32 +18,25 @@ export default function Search() {
     }, [cityFromUser]) 
 
 
-    useEffect(() => { // good format for the api req of the geolocation is 
-        ///http://dataservice.accuweather.com/locations/v1/cities/geoposition/search.json?q=32.1,34.8&apikey=ip1VDGLRf1bg4vLPoUeea9yP7gJPQ6BX&toplevel=false
-
-        
-        navigator.geolocation.getCurrentPosition(console.log, console.log) 
-    },[])
-
-    const handelCityChange = function (event) {
-            setCityFromUser(event.target.value)
-    }
-
-    const handelCitySearch = function () {
+    const bringWether = async function () {
+        console.log(cityCode);
         setCityFromUser('')
     }
 
-
     return (
     <div className="search">
-            <input onChange={handelCityChange} value={cityFromUser} placeholder='City Name'></input>
-            <select name='cites'>
+            <input
+                onChange={(event) => setCityFromUser(event.target.value)} 
+                value={cityFromUser}
+                placeholder='City Name'>
+            </input>
+            <select
+                onChange={(event)=> setCityCode(event.target.value)}>
                 {citesFromAPI ? citesFromAPI.map(city => 
                     <option key={city.Key} value={city.Key}>{city.LocalizedName}</option>
                 ): <option value='null'>Loading</option>}
             </select>
-            <button onClick={handelCitySearch} >Search</button>
-
+            <button onClick={bringWether} >Select</button>
             
     </div>
     );
