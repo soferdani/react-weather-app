@@ -28,15 +28,19 @@ export default function Search() {
             <input
                 onChange={(event) => setCityFromUser(event.target.value)} 
                 value={cityFromUser}
-                placeholder='City Name'>
+                placeholder='City Name'
+                list='cities'>
             </input>
-            <select
+            <datalist
+                id='cities'
                 onChange={(event)=> setCityCode(event.target.value)}>
                 {citesFromAPI ? citesFromAPI.map(city => 
                     <option key={city.Key} value={city.Key}>{city.LocalizedName}</option>
                 ): <option value='null'>Loading</option>}
-            </select>
+            </datalist>
             <button onClick={bringWether} >Select</button>
+
+
             
     </div>
     );
