@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
-const WEATHER_API_KEY= process.env.REACT_APP_WEATHER_API
+import OneOption from "./OneOption";
+const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API
 
 
 export default function Search() {
     const [cityFromUser, setCityFromUser] = useState('')
     const [citesFromAPI, setCitesFromAPI] = useState(null)
-    const [cityCode, setCityCode] = useState (null)
+    const [cityCode, setCityCode] = useState ("")
 
     useEffect(() => { // at the moment does not really working like it should
         const cityKey = async function () {
@@ -18,31 +19,34 @@ export default function Search() {
     }, [cityFromUser]) 
 
 
-    const bringWether = async function () {
+    // const setCityIdFromUser = function (id) {
+    //     setCityCode(id)
+    // }
+
+
+    const bringWether = function () {
         console.log(cityCode);
-        setCityFromUser('')
+
+        // setCityFromUser('')
     }
 
     return (
     <div className="search">
             <input
-                onChange={(event) => setCityFromUser(event.target.value)} 
+                onChange={(event)=> setCityFromUser(event.target.value) } 
                 value={cityFromUser}
                 placeholder='City Name'
                 list='cities'>
             </input>
             <datalist
-                id='cities'
-                onChange={(event)=> setCityCode(event.target.value)}>
-                {citesFromAPI ? citesFromAPI.map(city => 
-                    <option key={city.Key} value={city.Key}>{city.LocalizedName}</option>
-                ): <option value='null'>Loading</option>}
+                id='cities'>
+                {citesFromAPI && citesFromAPI.map(city => 
+                    <OneOption setcode={setCityCode} key={city.Key} value={city.LocalizedName}>{city.Key}</OneOption>)}
             </datalist>
             <button onClick={bringWether} >Select</button>
-
-
-            
     </div>
     );
 }
+
+
 
