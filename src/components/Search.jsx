@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import OneOption from "./OneOption";
 const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API
 
 
 export default function Search() {
     const [cityFromUser, setCityFromUser] = useState('')
     const [citesFromAPI, setCitesFromAPI] = useState(null)
-    const [cityCode, setCityCode] = useState ("")
 
-    useEffect(() => { // at the moment does not really working like it should
+    useEffect(() => {
         const cityKey = async function () {
             let LocationAPI = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${WEATHER_API_KEY}&q=${cityFromUser}`)
             LocationAPI = await LocationAPI.data
@@ -19,15 +17,9 @@ export default function Search() {
     }, [cityFromUser]) 
 
 
-    // const setCityIdFromUser = function (id) {
-    //     setCityCode(id)
-    // }
-
-
-    const bringWether = function () {
-        console.log(cityCode);
-
-        // setCityFromUser('')
+    const bringWether = async function () {
+        let code = citesFromAPI.filter(city => city.LocalizedName === cityFromUser)
+        code = code[0].Key
     }
 
     return (
@@ -41,7 +33,7 @@ export default function Search() {
             <datalist
                 id='cities'>
                 {citesFromAPI && citesFromAPI.map(city => 
-                    <OneOption setcode={setCityCode} key={city.Key} value={city.LocalizedName}>{city.Key}</OneOption>)}
+                    <option key={city.Key} value={city.LocalizedName}>{city.Key}</option>)}
             </datalist>
             <button onClick={bringWether} >Select</button>
     </div>
