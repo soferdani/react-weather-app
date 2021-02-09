@@ -7,6 +7,7 @@ const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API;
 
 function App() {
 	const [currentWeatherAPI, setCurrentWeatherAPI] = useState()
+	const [currentLocationInfo, setCurrentLocationInfo] = useState()
 
 	useEffect(() => {
 		const bringGeoLocation = async function () {
@@ -18,6 +19,7 @@ function App() {
 						`http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${WEATHER_API_KEY}&q=${lat},${lon}`
 					);
 					let currentWeatherInfo = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${currentLocationCode.data.Key}?apikey=${WEATHER_API_KEY}`)
+					setCurrentLocationInfo(currentLocationCode.data)
 					setCurrentWeatherAPI(currentWeatherInfo.data)
 				},
 				(error) => {
@@ -33,8 +35,9 @@ function App() {
 
 	return (
 		<div className='App'>
+			
 			<Search />
-			{currentWeatherAPI && <WeatherBox allinfo={currentWeatherAPI}/>}
+			{currentWeatherAPI && <WeatherBox locationCode={currentLocationInfo} weatherInfo={currentWeatherAPI}/>}
 		</div>
 	);
 }
