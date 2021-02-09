@@ -8,18 +8,23 @@ export default function Search() {
     const [citesFromAPI, setCitesFromAPI] = useState(null)
 
     useEffect(() => {
-        const cityKey = async function () {
+        const bringCityKey = async function () {
             let LocationAPI = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${WEATHER_API_KEY}&q=${cityFromUser}`)
             LocationAPI = await LocationAPI.data
             setCitesFromAPI(LocationAPI)
         }
-        cityKey()
+        bringCityKey()
     }, [cityFromUser]) 
 
 
     const bringWether = async function () {
         let code = citesFromAPI.filter(city => city.LocalizedName === cityFromUser)
         code = code[0].Key
+        let currentWeatherInfo = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${code}?apikey=${WEATHER_API_KEY}`)
+        currentWeatherInfo = await currentWeatherInfo.data[0]
+        console.log("🚀 ~ file: Search.jsx ~ line 28 ~ bringWether ~ currentWeatherInfo", currentWeatherInfo)
+        // data i want - isDayTime, WeatherIcon, WeatherText, temperatur
+        
     }
 
     return (
@@ -36,6 +41,7 @@ export default function Search() {
                     <option key={city.Key} value={city.LocalizedName}>{city.Key}</option>)}
             </datalist>
             <button onClick={bringWether} >Select</button>
+            
     </div>
     );
 }
