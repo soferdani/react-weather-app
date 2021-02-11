@@ -3,11 +3,13 @@ import axios from "axios";
 import "./App.css";
 import Search from "./components/Search";
 import WeatherBox from "./components/WeatherBox";
+import Navbar from "./components/Navbar";
 const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API;
 
 function App() {
 	const [currentWeatherAPI, setCurrentWeatherAPI] = useState()
 	const [currentLocationInfo, setCurrentLocationInfo] = useState()
+
 
 	useEffect(() => {
 		const bringGeoLocation = async function () {
@@ -35,7 +37,7 @@ function App() {
 
 	return (
 		<div className='App'>
-			
+			<Navbar />
 			<Search />
 			{currentWeatherAPI && <WeatherBox locationCode={currentLocationInfo} weatherInfo={currentWeatherAPI}/>}
 		</div>
