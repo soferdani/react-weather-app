@@ -11,6 +11,7 @@ function App() {
 	const [currentLocationInfo, setCurrentLocationInfo] = useState()
 
 
+
 	useEffect(() => {
 		const bringGeoLocation = async function () {
 			navigator.geolocation.getCurrentPosition(
