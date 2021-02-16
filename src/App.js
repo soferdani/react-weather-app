@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Favorites from "./components/Favorites";
@@ -11,6 +11,9 @@ function App() {
 		<div className='App'>
 			<Router>
 				<Route path='/' component={Navbar} />
+				<Route exact path="/">
+					<Redirect to="/home" />
+				</Route>
 				<Route exact path='/favorites' component={Favorites} />
 				<Route exact path='/home' component={Home} />
 			</Router>
