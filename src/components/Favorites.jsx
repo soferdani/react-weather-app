@@ -1,13 +1,13 @@
 import store from '../store/cites'
 import {observer} from 'mobx-react'
 
-const Favorites = ()=> {
+const Favorites = () => {
 
-    console.log(store);
+    console.log(store.cities);
 
     return (
         <div>
-            this is favorites
+            ghds
         </div>
     )
 }

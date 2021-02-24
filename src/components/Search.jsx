@@ -22,10 +22,10 @@ const Search = () => {
     const bringWether = async function () {
         let code = citesFromAPI.filter(city => city.LocalizedName === cityFromUser)
         code = code[0].Key
+        store.addNewCity(code)
         let currentWeatherInfo = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${code}?apikey=${WEATHER_API_KEY}`)
         currentWeatherInfo = await currentWeatherInfo.data[0]
-        store.addNewCity(currentWeatherInfo)
-        console.log("🚀 ~ file: Search.jsx ~ line 28 ~ bringWether ~ currentWeatherInfo", currentWeatherInfo)
+        console.log(currentWeatherInfo);
         
     }
 

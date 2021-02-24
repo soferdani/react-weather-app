@@ -20,4 +20,8 @@ function App() {
 	);
 }
 
+// to do - 
+// 	1. make the serach chinge the screen
+// 	2. add favorite with use of local storege
+
 export default App;

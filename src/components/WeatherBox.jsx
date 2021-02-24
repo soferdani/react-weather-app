@@ -8,7 +8,6 @@ export default function WeatherBox(props) {
     let location = props.locationCode
     let weather = props.weatherInfo[0]
     let currentTime = moment.unix(weather.EpochTime).format('dddd, MMMM Do, YYYY h:mm A')
-    console.log(weather);
 
     const handelTempChange = function () {
         setFahrenheitOrCelsius(!fahrenheitOrCelsius)
