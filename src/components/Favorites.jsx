@@ -1,4 +1,9 @@
-export default function Favorites() {
+import store from '../store/cites'
+import {observer} from 'mobx-react'
+
+const Favorites = ()=> {
+
+    console.log(store);
 
     return (
         <div>
@@ -6,3 +11,5 @@ export default function Favorites() {
         </div>
     )
 }
+
+export default observer(Favorites)

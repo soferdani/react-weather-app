@@ -1,20 +1,24 @@
-import { action,makeObservable,observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 
 class CitiesStoreImpl {
     cities = []
 
     constructor() {
-        makeObservable(this, {
-            cities: observable,
-            addNewCity: action
-        })
+        makeAutoObservable(this)
     }
 
     addNewCity(cityCode) {
         this.cities.push(cityCode)
     }
 
+    removeCity(cityCode) {  
+        let itemToRemove = this.cities.indexOf(cityCode)
+        this.cities.splice(itemToRemove,1)
+    }
+
 }
 
-export default CitiesStoreImpl
+const store = new CitiesStoreImpl()
+
+export default store;

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import store from '../store/cites'
+import {observer} from 'mobx-react'
 const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API
 
-
-export default function Search() {
+const Search = () => {
     const [cityFromUser, setCityFromUser] = useState('')
     const [citesFromAPI, setCitesFromAPI] = useState(null)
+
 
     useEffect(() => {
         const bringCityKey = async function () {
@@ -22,8 +24,8 @@ export default function Search() {
         code = code[0].Key
         let currentWeatherInfo = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${code}?apikey=${WEATHER_API_KEY}`)
         currentWeatherInfo = await currentWeatherInfo.data[0]
+        store.addNewCity(currentWeatherInfo)
         console.log("🚀 ~ file: Search.jsx ~ line 28 ~ bringWether ~ currentWeatherInfo", currentWeatherInfo)
-        // data i want - isDayTime, WeatherIcon, WeatherText, temperatur
         
     }
 
@@ -47,4 +49,4 @@ export default function Search() {
 }
 
 
-
+export default observer(Search)
